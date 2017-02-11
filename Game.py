@@ -63,7 +63,7 @@ class Game(object):
   if 2 in self.plts and 20 in self.plts:
    k = self.game(2,20,11)
    if k:
-    self._color([1,11,21],k)
+    self._color([2,20,11],k)
     self.won=True
     self._kill()
     
