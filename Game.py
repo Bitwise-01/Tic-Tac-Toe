@@ -76,6 +76,7 @@ class Game(object):
     rows,columns = int(loc[0]),int(loc[1])
 
    recolor = Label(text=sym,bg=color)
+   recolor.config(font=("Courier", 44))
    recolor.grid(row=rows,column=columns)
   
  def _kill(self):
@@ -107,6 +108,7 @@ class Game(object):
  def clicked(self,y,x):
   iname = int('{}{}'.format(y,x))
   mark = Label(text=self.syms)
+  mark.config(font=("Courier", 50))
   if iname not in self.plts:
    self.plts.append(iname)
    self._sym.append(self.syms)
@@ -123,9 +125,9 @@ class Game(object):
   b3.grid(row=1,column=0);b4.grid(row=1,column=1);b5.grid(row=1,column=2)
   b6.grid(row=2,column=0);b7.grid(row=2,column=1);b8.grid(row=2,column=2)
 
-  b0.config(height=5,width=5);b1.config(height=5,width=5);b2.config(height=5,width=5)
-  b3.config(height=5,width=5);b4.config(height=5,width=5);b5.config(height=5,width=5)
-  b6.config(height=5,width=5);b7.config(height=5,width=5);b8.config(height=5,width=5)
+  b0.config(height=15,width=15);b1.config(height=15,width=15);b2.config(height=15,width=15)
+  b3.config(height=15,width=15);b4.config(height=15,width=15);b5.config(height=15,width=15)
+  b6.config(height=15,width=15);b7.config(height=15,width=15);b8.config(height=15,width=15)
 
 if __name__ == '__main__':
   gui = Tk()
