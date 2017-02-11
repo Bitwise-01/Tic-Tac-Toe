@@ -4,7 +4,6 @@
 #
 from Tkinter import *
 from random import choice
-from itertools import permutations
 
 class Game(object): 
  def __init__(self,master):
