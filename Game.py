@@ -13,13 +13,13 @@ class Game(object):
   self.syms = choice(['X','O'])
   self.plts = []
   self._sym = []
-  self.mid  = [01,10,11,21,12]
-  self.corn = [00,02,20,22]
+  self.mid  = [1,10,11,21,12]
+  self.corn = [0,2,20,22]
   self.flow = [
-                [00,01,02],[20,21,22],
-                [00,10,20],[02,12,22], 
-                [10,11,12],[01,11,21],
-                [00,11,22],[02,11,20]
+                [0, 1, 2 ], [20,21,22],
+                [0,10,20 ], [2,12,22 ], 
+                [10,11,12], [1,11,21 ],
+                [0,11,22 ], [2,11,20 ]
               ]
 
  def corners(self,conn):
@@ -48,23 +48,23 @@ class Game(object):
     self._color([10,11,12],k) 
     self.won=True 
     self._kill()    
-  if 01 in self.plts and 21 in self.plts:
-   k = self.game(01,21,11)
+  if 1 in self.plts and 21 in self.plts:
+   k = self.game(1,21,11)
    if k:
-    self._color([01,11,21],k)
+    self._color([1,11,21],k)
     self.won=True
     self._kill()
   
-  if 00 in self.plts and 22 in self.plts:
-   k = self.game(00,22,11)
+  if 0 in self.plts and 22 in self.plts:
+   k = self.game(0,22,11)
    if k:
-    self._color([00,11,22],k)
+    self._color([0,11,22],k)
     self.won=True
     self._kill()
-  if 02 in self.plts and 20 in self.plts:
-   k = self.game(02,20,11)
+  if 2 in self.plts and 20 in self.plts:
+   k = self.game(2,20,11)
    if k:
-    self._color([01,11,21],k)
+    self._color([1,11,21],k)
     self.won=True
     self._kill()
     
@@ -105,7 +105,6 @@ class Game(object):
        self.won=True
        self._kill()
        
-    
  def clicked(self,y,x):
   iname = int('{}{}'.format(y,x))
   mark = Label(text=self.syms)
