@@ -135,9 +135,10 @@ class AI(object):
      return
 
   if len(engine.game.positionsPlayed)==1:
-   engine.game.clicked(1,1)
-   return
-
+   if not 4 in engine.game.positionsPlayed:
+    engine.game.clicked(1,1)
+    return
+  
   if len(engine.game.positionsPlayed)==3:
    goodSpot=self.findPositions()
    if goodSpot:
