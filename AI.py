@@ -140,8 +140,9 @@ class AI(object):
     return
   
   if len(engine.game.positionsPlayed)==3:
-   goodSpot=self.findPositions()
-   if goodSpot:
+   goodSpot=self.logic()
+
+   if goodSpot!=None:
     spot=str(engine.game.inflate(goodSpot))
     if len(str(spot))!=2:
      engine.game.clicked(0,spot)
@@ -156,8 +157,8 @@ class AI(object):
     return    
 
   if len(engine.game.positionsPlayed)==4:
-   goodSpot=self.findPositions()
-   if goodSpot:
+   goodSpot=self.logic()
+   if goodSpot!=None:
     spot=str(engine.game.inflate(goodSpot))
     if len(str(spot))!=2:
      engine.game.clicked(0,spot)
@@ -171,32 +172,30 @@ class AI(object):
     engine.game.clicked(0,0)
     return    
 
-  goodSpot = self.findPositions()
+  goodSpot = self.logic()
   corner   = [num for num in self.corner if not num in engine.game.positionsPlayed]
   backup   = [num for num in range(9) if not num in engine.game.positionsPlayed]
-  spot     = engine.game.inflate(goodSpot if goodSpot else random.choice(corner) if corner else random.choice(backup) if backup else None)  
-  
-  if len(str(spot))!=2:
-   engine.game.clicked(0,spot)
-  else:
-   engine.game.clicked(int(str(spot)[0]),int(str(spot)[1]))       
+  spot     = engine.game.inflate(goodSpot if goodSpot!=None else random.choice(corner) if corner else random.choice(backup) if backup else None)  
  
- def findPositions(self):
+  if len(str(spot))!=2:engine.game.clicked(0,spot)
+  else:engine.game.clicked(int(str(spot)[0]),int(str(spot)[1]))       
+ 
+ def logic(self):
   for lst in engine.game.waysOfWinning:
-   for a,num1 in enumerate(lst): 
-    if num1 in engine.game.positionsPlayed:
-     for b,num2 in enumerate(lst):
-      if a==b:continue
-      if num2 in engine.game.positionsPlayed:
-       if engine.game.positionsPlayed[num1]=='O' and engine.game.positionsPlayed[num2]=='O' or engine.game.positionsPlayed[num1]=='X' and engine.game.positionsPlayed[num2]=='X':
-        newSpot = lst[0] if lst[0] not in engine.game.positionsPlayed else lst[1] if lst[1] not in engine.game.positionsPlayed else lst[2] if lst[2] not in engine.game.positionsPlayed else None
-        if newSpot:
-         return newSpot
+   for a,alpha in enumerate(lst):
+    for b,beta in enumerate(lst):
+     if a==b:continue
+     if all([alpha in engine.game.positionsPlayed,beta in engine.game.positionsPlayed]):
+      if engine.game.positionsPlayed[alpha]==engine.game.positionsPlayed[beta]:
+       for num in range(2):
+        if all([a!=num,b!=num]):
+         if not lst[num] in engine.game.positionsPlayed:
+          return lst[num]
 
 class Controls(object):
  def __init__(self):
-  self.game     = None
-  self.ai       = None
+  self.game = None
+  self.ai   = None
   
  def engine(self):
   if not self.ai:
