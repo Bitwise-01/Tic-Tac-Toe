@@ -187,7 +187,7 @@ class AI(object):
      if a==b:continue
      if all([alpha in engine.game.positionsPlayed,beta in engine.game.positionsPlayed]):
       if engine.game.positionsPlayed[alpha]==engine.game.positionsPlayed[beta]:
-       for num in range(2):
+       for num in range(3):
         if all([a!=num,b!=num]):
          if not lst[num] in engine.game.positionsPlayed:
           return lst[num]
