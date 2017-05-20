@@ -141,20 +141,26 @@ class AI(object):
   
   if len(engine.game.positionsPlayed)==3:
    goodSpot=self.logic()
-
    if goodSpot!=None:
     spot=str(engine.game.inflate(goodSpot))
     if len(str(spot))!=2:
      engine.game.clicked(0,spot)
     else:
      engine.game.clicked(int(str(spot)[0]),int(str(spot)[1])) 
-    return      
-   if not 2 in engine.game.positionsPlayed:
-    engine.game.clicked(0,1)
-    return
-   if not 7 in engine.game.positionsPlayed:
-    engine.game.clicked(2,1)
-    return    
+    return   
+   if all([1 in engine.game.positionsPlayed,8 in engine.game.positionsPlayed]):
+    if engine.game.positionsPlayed[1]==engine.game.positionsPlayed[8]:
+     engine.game.clicked(0,2)
+     return  
+   if all([1 in engine.game.positionsPlayed,6 in engine.game.positionsPlayed]):
+    if engine.game.positionsPlayed[1]==engine.game.positionsPlayed[6]:
+     engine.game.clicked(0,0)
+     return
+   spot=[num for num in range(9) if not num in engine.game.positionsPlayed]
+   spot=engine.game.inflate(random.choice(spot))   
+   if len(str(spot))!=2:engine.game.clicked(0,spot)
+   else:engine.game.clicked(int(str(spot)[0]),int(str(spot)[1]))  
+   return 
 
   if len(engine.game.positionsPlayed)==4:
    goodSpot=self.logic()
@@ -175,7 +181,7 @@ class AI(object):
   goodSpot = self.logic()
   corner   = [num for num in self.corner if not num in engine.game.positionsPlayed]
   backup   = [num for num in range(9) if not num in engine.game.positionsPlayed]
-  spot     = engine.game.inflate(goodSpot if goodSpot!=None else random.choice(corner) if corner else random.choice(backup) if backup else None)  
+  spot     = engine.game.inflate(goodSpot if goodSpot!=None else random.choice(corner) if corner else random.choice(backup) if backup else None) 
  
   if len(str(spot))!=2:engine.game.clicked(0,spot)
   else:engine.game.clicked(int(str(spot)[0]),int(str(spot)[1]))       
